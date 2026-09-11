@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Request Form</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #f9fafc;
+      color: #333;
+      margin: 0 0 20px 0;
+    }
+
+    body>aside,
+    body>main,
+    body>section {
+      padding: 0 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-size: 1rem;
+    }
+
+    /* Skip link */
+    .skip-to-content {
+      position: absolute;
+      left: -999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .skip-to-content:focus {
+      left: 1rem;
+      top: 1rem;
+      padding: 0.5rem 0.75rem;
+      background: #0b6ed6;
+      color: #fff;
+      z-index: 1000;
+      width: auto;
+      height: auto;
+    }
+
+    h1 {
+      color: #004080;
+    }
+
+    h2 {
+      color: #004080;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+    }
+
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 3px solid #e6eefb;
+      background-color: #1A3C8D;
+      /* EP blue */
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: #1A3C8D;
+      /* EP blue */
+      padding: 0.75rem 1rem;
+      border-radius: 0 0 8px 8px;
+      color: #ffffff;
+    }
+
+    .brand img {
+      height: auto;
+      max-width: 260px;
+      display: block;
+    }
+
+    .form-description {
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    fieldset {
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      background: #fff;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #004080;
+    }
+
+    .legend-note {
+      font-weight: normal;
+      font-size: 0.9rem;
+      color: #555;
+      display: block;
+      margin-top: 0.3rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      margin-top: 0.2rem;
+      padding: 0.4rem;
+      border: 1px solid #8b8b8b;
+      border-radius: 4px;
+      max-width: 300px;
+      width: 100%;
+    }
+
+    /* Error styling */
+    .error-message {
+      color: #d8000c;
+      margin-top: 0.3rem;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+      display: block;
+    }
+
+    .error-summary {
+      background-color: #fff;
+      border: 2px solid #d8000c;
+      border-radius: 4px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .error-summary h2 {
+      color: #d8000c;
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .error-summary ul {
+      margin: 0.5rem 0 0 1.5rem;
+      padding: 0;
+    }
+
+    .error-summary li {
+      margin-bottom: 0.5rem;
+    }
+
+    .error-summary a {
+      color: #d8000c;
+      text-decoration: underline;
+    }
+
+    input.error,
+    select.error {
+      border: 2px solid #d8000c;
+    }
+
+    /* Success message */
+    .success-message {
+      background-color: #d4edda;
+      border: 2px solid #28a745;
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 600px;
+      width: 90%;
+    }
+
+    .success-message h2 {
+      color: #155724;
+      margin-top: 0;
+    }
+
+    .success-message p {
+      color: #155724;
+      font-size: 1.1rem;
+    }
+
+    /* Radio buttons and checkboxes */
+    .radio-group,
+    .checkbox-group {
+      margin-top: 0.5rem;
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 0.4rem;
+      width: auto;
+    }
+
+    /* Custom spin button wrapper */
+    .spin-wrapper {
+      display: flex;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .spin-wrapper input[type="number"] {
+      width: 3rem;
+      height: 2.73rem;
+      text-align: center;
+      font-size: 1rem;
+      border: 1px solid #8b8b8b;
+      border-radius: 0;
+      margin: 0;
+      -moz-appearance: textfield;
+    }
+
+    .spin-wrapper input::-webkit-outer-spin-button,
+    .spin-wrapper input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .spin-buttons {
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.2rem;
+    }
+
+    .spin-buttons button {
+      flex: 1;
+      border: 0;
+      background: #004080;
+      font-size: 0.8rem;
+      cursor: pointer;
+      line-height: 1;
+      margin: 1px 0;
+      padding: 0.30rem;
+      color: white;
+    }
+
+    /* Screen reader only */
+    .sr-only {
+      position: absolute !important;
+      left: -9999px;
+      height: 1px;
+      width: 1px;
+      overflow: hidden;
+      clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap;
+    }
+
+    button[type="submit"] {
+      background: #004080;
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+
+    button[type="submit"]:hover,
+    button[type="submit"]:focus {
+      background: #0066cc;
+    }
+
+    /* Two-color focus indicator (C34 technique) */
+    :focus {
+      outline: none;
+    }
+
+    :focus-visible {
+      box-shadow:
+        0 0 0 2px #ffffff,
+        0 0 0 4px #004080;
+      border-radius: 2px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #otherAccessibilityText {
+      margin-top: 0.5rem;
+      max-width: 100%;
+      width: 400px;
+    }
+
+    /* ENLARGING RADIO BUTTONS AND CHECKBOXES on tablet and mobile for the example */
+    @media only screen and (max-width: 810px) {
+      .radio-group label {
+        padding: 16px;
+      }
+
+      .radio-group input[type="radio"],
+      input[type="checkbox"] {
+        transform: scale(2);
+        margin-right: 2rem;
+      }
+    }
+
+    /* END - Enlarging radio buttons and checkboxes */
+
+    /* TOOLTIP */
+    .form-group {
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input {
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #date-hint {
+      position: absolute;
+      left: 0;
+      top: 110%;
+      background-color: #333;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      z-index: 10;
+      width: 220px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    #date-hint::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 15px;
+      border-width: 6px;
+      border-style: solid;
+      border-color: transparent transparent #333 transparent;
+    }
+
+    #date-hint.is-visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* END - TOOLTIP */
+
+    /* BREADCRUMB */
+    .breadcrumb ol {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .breadcrumb li {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    .breadcrumb a {
+      color: #1A3C8D;
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .breadcrumb .separator {
+      margin: 0 8px;
+      color: #888;
+    }
+
+    .breadcrumb [aria-current="page"] {
+      color: #333;
+      font-weight: bold;
+    }
+
+    /* END - BREADCRUMB */
+
+    /* MAIN MULTI LEVEL MENU */
+    nav[aria-label="Primary"] {
+      display: flex;
+      justify-content: flex-start;
+      margin: 0 auto;
+      padding: 0.75rem 0;
+    }
+
+    nav[aria-label="Primary"] ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: .5rem;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Styled both links and buttons to look identical */
+    nav[aria-label="Primary"] a,
+    nav[aria-label="Primary"] button {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      font-size: 1rem;
+      font-family: inherit;
+      padding: 0.75rem 1rem;
+      color: #ffffff;
+      text-decoration: none;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav[aria-label="Primary"] button#nav-home {
+      margin-left: 20px;
+    }
+
+    nav[aria-label="Primary"] a:hover,
+    nav[aria-label="Primary"] a:focus-visible,
+    nav[aria-label="Primary"] button:hover,
+    nav[aria-label="Primary"] button:focus-visible {
+      background-color: #e6eefb;
+      color: #0b2545;
+    }
+
+    nav[aria-label="Primary"] a.active {
+      background-color: #87A9D7;
+      color: #000;
+      font-weight: bold;
+    }
+
+    nav[aria-label="Primary"] button.active-parent {
+      border: 2px solid #87A9D7;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    nav[aria-label="Primary"] button.active-parent:hover,
+    nav[aria-label="Primary"] button.active-parent:focus-visible {
+      background-color: white;
+      color: #000;
+    }
+
+    nav[aria-label="Primary"] a.active:hover,
+    nav[aria-label="Primary"] a.active:focus-visible {
+      background-color: white;
+    }
+
+    nav[aria-label="Primary"] ul li {
+      position: relative;
+    }
+
+    nav[aria-label="Primary"]>ul {
+      display: flex;
+    }
+
+    /* Submenu visibility linked to ARIA state and Hover fallback */
+    nav[aria-label="Primary"] ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 200px;
+      background-color: #0b2545;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 0.75em 0;
+      margin-top: 0rem;
+      border-radius: 8px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+    }
+
+    /* Displays menu when button states are active or hovered */
+    nav[aria-label="Primary"] ul li:hover>ul,
+    nav[aria-label="Primary"] button[aria-expanded="true"]+ul {
+      display: flex;
+    }
+
+    nav[aria-label="Primary"] ul li ul a {
+      display: block;
+      font-size: 0.9rem;
+      padding: 0.5rem 1.25rem;
+    }
+
+    /* Main menu Arrows for buttons */
+    nav[aria-label="Primary"] ul li:has(ul)>button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-right: 1rem;
+    }
+
+    nav[aria-label="Primary"] ul li:has(ul)>button::after {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.3s ease;
+      margin-bottom: 2px;
+    }
+
+    /* Arrow animation linked to both hover and explicit aria-expanded status */
+    nav[aria-label="Primary"] ul li:hover>button::after,
+    nav[aria-label="Primary"] button[aria-expanded="true"]::after {
+      transform: rotate(-135deg);
+      margin-bottom: -2px;
+    }
+
+    @media (max-width: 960px) {
+      nav[aria-label="Primary"] button {
+        font-size: .8rem;
+        padding: 0.75rem .5rem;
+        margin-left: 0;
+      }
+    }
+
+    /* END - MAIN MULTI LEVEL MENU*/
+
+    /* CAROUSEL */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 320px;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .carousel-slides {
+      width: 100%;
+      flex-grow: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* min-height: 0; */
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .slide-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      max-width: 70%;
+      text-align: center;
+    }
+
+    .slide-content h3 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 10px;
+      margin-top: 0 !important;
+    }
+
+    .slide-content p {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-align: center;
+      width: 100%;
+      margin-bottom: 4rem;
+    }
+
+    .prev-btn,
+    .next-btn {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: transparent;
+      color: white;
+      border: 1px solid #ffffff;
+      font-size: 24px;
+      padding: 15px 0;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+      z-index: 10;
+    }
+
+    .prev-btn:hover,
+    .next-btn:hover {
+      background-color: white;
+      color: #333;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 10;
+      counter-reset: section;
+    }
+
+    .nav-number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 35px;
+      background-color: transparent;
+      color: white;
+      border-radius: 50%;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 1px solid #ffffff;
+      font-size: 1rem;
+    }
+
+    .nav-number:hover,
+    .nav-number.active {
+      background-color: white;
+      color: #333;
+      transform: scale(1.1);
+    }
+
+    .nav-number::before {
+      counter-increment: section;
+      content: counter(section);
+    }
+
+    .nav-number:focus-visible {
+      outline: 3px solid #2E7D32;
+      outline-offset: 2px;
+    }
+
+    @media only screen and (max-width: 810px) {
+      .slide-content h3 {
+        font-size: 2rem;
+      }
+
+      .slide-content p {
+        font-size: 1.2rem;
+      }
+
+      .prev-btn,
+      .next-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+        padding: 2px 10px;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .carousel-container {
+        min-height: 340px;
+      }
+
+      .slide-content h3 {
+        font-size: 1.5rem;
+      }
+
+      .slide-content p {
+        font-size: 1rem;
+      }
+
+      .slide-content h3 {
+        margin-bottom: 0;
+      }
+
+      .prev-btn,
+      .next-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+        padding: 0;
+      }
+
+      .nav-number {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* END - CAROUSEL */
+  </style>
+</head>
+
+<body>
+  <a class="skip-to-content" href="#maincontent">Skip to main content</a>
+
+  <header role="banner">
+    <div class="brand">
+      <!-- EP logo: alt text must be descriptive -->
+      <img src="ep_logo_itec.png"
+        alt="Logo of the European Parliament with text Directorate-General for Information Technologies and Cybersecurity"
+        width="270" height="105">
+
+    </div>
+
+    <!-- MAIN MULTI LEVEL MENU -->
+    <div>
+      <nav aria-label="Primary">
+        <ul>
+          <li>
+            <button type="button" id="nav-home">
+              Home
+            </button>
+          </li>
+
+          <li>
+            <button type="button" id="nav-dashboard" aria-expanded="false" aria-controls="menu-dashboard">
+              Dashboard
+            </button>
+            <ul id="menu-dashboard">
+              <li><a href="#dashboard-overview" id="nav-dashboard-overview">Overview</a></li>
+              <li><a href="#dashboard-notifications" id="nav-dashboard-notifications">Notifications</a></li>
+              <li><a href="#dashboard-delegations" id="nav-dashboard-delegations">Delegations</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <button type="button" id="nav-travel-rules" aria-expanded="false" aria-controls="menu-travel">
+              Travel rules and allowances
+            </button>
+            <ul id="menu-travel">
+              <li><a href="#travel-daily" id="nav-travel-daily">Daily Allowances</a></li>
+              <li><a href="#travel-reimbursements" id="nav-travel-reimbursements">Reimbursements</a></li>
+              <li><a href="#travel-transport" id="nav-travel-transport">Transport policy</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <button type="button" id="nav-my-mission-requests" class="active-parent" aria-expanded="false"
+              aria-controls="menu-mission">
+              My mission requests
+            </button>
+            <ul id="menu-mission">
+              <li><a href="#mission-new" id="nav-mission-new" class="active" aria-current="page">New request</a></li>
+              <li><a href="#mission-upcoming" id="nav-mission-upcoming">Upcoming trips</a></li>
+              <li><a href="#mission-history" id="nav-mission-history">Past history</a></li>
+              <li><a href="#mission-track" id="nav-mission-track">Track approvals</a></li>
+            </ul>
+          </li>
+
+          <li>
+            <button type="button" id="nav-support" aria-expanded="false" aria-controls="menu-support">
+              Support and helpdesk
+            </button>
+            <ul id="menu-support">
+              <li><a href="#support-ticket" id="nav-support-ticket">Open ticket</a></li>
+              <li><a href="#support-hotline" id="nav-support-hotline">Emergency hotline</a></li>
+              <li><a href="#support-faqs" id="nav-support-faqs">FAQs</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <!-- END - MAIN MULTI LEVEL MENU -->
+
+  </header>
+  <section id="breadcrumb">
+    <nav aria-label="Breadcrumb" class="breadcrumb" role="navigation">
+      <ol>
+        <li>
+          <a href="#home">Home</a>
+          <span class="separator" aria-hidden="true">></span>
+        </li>
+        <li>
+          <a href="#my-mission-requests">My mission requests</a>
+          <span class="separator" aria-hidden="true">></span>
+        </li>
+        <li>
+          <span aria-current="page">New request</span>
+        </li>
+      </ol>
+    </nav>
+  </section>
+  <!-- CAROUSEL -->
+  <aside id="carousel-main" role="region" aria-roledescription="carousel" aria-labelledby="carousel-title">
+    <h2 id="carousel-title" class="sr-only">Mission request carousel</h2>
+    <div class="carousel-container">
+      <div class="carousel-slides">
+        <div class="slide active" style="background-color: #2E7D32;">
+          <div class="slide-content">
+            <h3>Eligibility rules</h3>
+            <p>MEPs, APAs, and Staff have different budgetary approval chains. Double-check that your role matches your
+              official profile to prevent automated rejection.</p>
+          </div>
+        </div>
+        <div class="slide" style="background-color: #7E57C2;" aria-hidden="true">
+          <div class="slide-content">
+            <h3>Transit thresholds</h3>
+            <p>Direct trains or shuttle buses between Brussels, Strasbourg, and Luxembourg are fully reimbursed. Private
+              car usage requires prior written authorization from your supervisor.</p>
+          </div>
+        </div>
+        <div class="slide" style="background-color: #00838F;" aria-hidden="true">
+          <div class="slide-content">
+            <h3>Nightly ceilings</h3>
+            <p>Maximum nightly hotel allowances: Brussels (€180), Strasbourg (€210), Luxembourg (€190). Agency-booked
+              hotels automatically include standard breakfast packages.</p>
+          </div>
+        </div>
+        <div class="slide" style="background-color: #BF360C;" aria-hidden="true">
+          <div class="slide-content">
+            <h3>Special arrangements</h3>
+            <p>The European Parliament covers requests for adapted transit and accessible accommodation for personnel
+              with documented disabilities.</p>
+          </div>
+        </div>
+      </div>
+      <button class="prev-btn" aria-label="Previous slide">&#10094;</button>
+      <button class="next-btn" aria-label="Next slide">&#10095;</button>
+      <div class="carousel-nav" role="tablist" aria-label="Slide selection">
+        <button class="nav-number active" aria-label="Slide 1" aria-selected="true" role="tab"></button>
+        <button class="nav-number" aria-label="Slide 2" aria-selected="false" role="tab"></button>
+        <button class="nav-number" aria-label="Slide 3" aria-selected="false" role="tab"></button>
+        <button class="nav-number" aria-label="Slide 4" aria-selected="false" role="tab"></button>
+      </div>
+    </div>
+  </aside>
+  <!-- END - CAROUSEL -->
+  <main id="maincontent" tabindex="0">
+    <div id="formContainer">
+      <h1>Mission request form</h1>
+      <p class="form-description">This form initiates a request for a mission and the associated travel
+        arrangements.<br>Please complete all mandatory fields (marked with *).</p>
+
+      <!-- Error Summary (hidden by default) -->
+      <div id="errorSummary" class="error-summary hidden" role="alert" aria-live="polite" tabindex="-1">
+        <h2>Error - Request not sent</h2>
+        <p>Please correct the following errors:</p>
+        <ul id="errorList"></ul>
+      </div>
+
+      <form id="missionForm" novalidate>
+        <!-- Section 1: Traveler & Mission Details -->
+        <h2>1. Traveler & mission details</h2>
+        <fieldset>
+          <legend class="sr-only">Traveler and mission details</legend>
+
+          <label for="yourName">Your name*</label>
+          <span id="yourName-error" class="error-message hidden" role="alert"></span>
+          <input id="yourName" name="yourName" type="text" required aria-describedby="yourName-error"
+            autocomplete="name">
+
+          <label for="role">Your role*</label>
+          <span id="role-error" class="error-message hidden" role="alert"></span>
+          <select id="role" name="role" required aria-describedby="role-error">
+            <option value="">Select a role</option>
+            <option value="MEP">MEP</option>
+            <option value="APA">APA</option>
+            <option value="Staff">Staff (e.g., official, temporary and contract agent)</option>
+          </select>
+
+          <label for="missionObjective">Mission objective*</label>
+          <span class="legend-note">(e.g., Plenary session, Committee meeting, meeting in the interest of the
+            service)</span>
+          <span id="missionObjective-error" class="error-message hidden" role="alert"></span>
+          <input id="missionObjective" name="missionObjective" type="text" required
+            aria-describedby="missionObjective-error">
+        </fieldset>
+
+        <!-- Section 2: Travel Selection & Itinerary -->
+        <h2>2. Travel selection & itinerary</h2>
+        <fieldset>
+          <legend class="sr-only">Travel selection and itinerary</legend>
+
+          <label for="from">From*</label>
+          <span id="from-error" class="error-message hidden" role="alert"></span>
+          <select id="from" name="from" required aria-describedby="from-error">
+            <option value="">Select location</option>
+            <option value="Brussels">Brussels</option>
+            <option value="Strasbourg">Strasbourg</option>
+            <option value="Luxembourg">Luxembourg</option>
+          </select>
+
+          <label for="to">To*</label>
+          <span id="to-error" class="error-message hidden" role="alert"></span>
+          <select id="to" name="to" required aria-describedby="to-error">
+            <option value="">Select location</option>
+            <option value="Brussels">Brussels</option>
+            <option value="Strasbourg">Strasbourg</option>
+            <option value="Luxembourg">Luxembourg</option>
+          </select>
+
+          <div>
+            <label for="departureDate">Departure date*</label>
+            <span id="departureDate-error" class="error-message hidden" role="alert"></span>
+            <input id="departureDate" name="departureDate" type="date" required aria-describedby="departureDate-error">
+          </div>
+
+          <div style="margin-top: 1rem;">
+            <label style="display: inline-flex; align-items: center;">
+              <input type="checkbox" id="roundTrip" name="roundTrip" checked>
+              Round trip
+            </label>
+          </div>
+
+          <!-- Tooltip -->
+          <div id="returnDateContainer" class="form-group hidden">
+            <label for="returnDate">Return date*</label>
+            <span id="returnDate-error" class="error-message hidden" role="alert"></span>
+            <input id="returnDate" name="returnDate" type="date" aria-describedby="date-hint">
+            <div id="date-hint" role="tooltip">
+              Please select a valid future date
+            </div>
+          </div>
+          <!-- END Tooltip -->
+
+          <div style="margin-top: 1rem;">
+            <fieldset id="transport" tabindex="-1" style="border: none; padding: 0; margin: 0;">
+              <legend style="font-weight: normal; color: #333; margin-bottom: 0.5rem;">Mode of transport*</legend>
+              <span id="transport-error" class="error-message hidden" role="alert"></span>
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="transport" value="shuttle" required aria-describedby="transport-error">
+                  EP shuttle bus
+                </label>
+                <label>
+                  <input type="radio" name="transport" value="train" aria-describedby="transport-error">
+                  Train
+                </label>
+                <label>
+                  <input type="radio" name="transport" value="car" aria-describedby="transport-error">
+                  Private car
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+
+        <!-- Section 3: Accommodation -->
+        <h2>3. Accommodation</h2>
+        <fieldset id="accommodationRequired" tabindex="-1">
+          <legend class="sr-only">Accommodation</legend>
+
+          <fieldset style="border: none; padding: 0; margin: 0;">
+            <legend style="font-weight: normal; color: #333; margin-bottom: 0.5rem;">Accommodation required?*</legend>
+            <span id="accommodationRequired-error" class="error-message hidden" role="alert"></span>
+            <div class="radio-group">
+              <label>
+                <input type="radio" name="accommodationRequired" value="yes" id="accomYes" required
+                  aria-describedby="accommodationRequired-error">
+                Yes
+              </label>
+              <label>
+                <input type="radio" name="accommodationRequired" value="no" id="accomNo"
+                  aria-describedby="accommodationRequired-error">
+                No
+              </label>
+            </div>
+          </fieldset>
+
+          <div id="accommodationDetails" class="hidden" style="margin-top: 1rem;">
+            <label>Number of nights</label>
+            <div class="spin-wrapper">
+              <input id="numNights" name="numNights" type="number" min="1" max="30" value="1"
+                aria-label="Number of nights">
+              <div class="spin-buttons">
+                <button type="button" id="increaseNight" aria-label="Increase night">▲</button>
+                <button type="button" id="decreaseNight" aria-label="Decrease night">▼</button>
+              </div>
+              <div id="numNightsLive" class="sr-only" aria-live="polite"></div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+              <label style="display: inline-flex; align-items: center;">
+                <input type="checkbox" name="breakfast">
+                Breakfast included
+              </label>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section 4: Accessibility Requirements -->
+        <h2>4. Accessibility requirements*</h2>
+        <fieldset id="accessibility" tabindex="-1">
+          <legend class="sr-only">Accessibility requirements*</legend>
+
+          <fieldset style="border: none; padding: 0; margin: 0;">
+            <!--
+          <legend style="font-weight: normal; color: #333; margin-bottom: 0.5rem;">Do you have accessibility requirements during your mission?*</legend>
+		  -->
+
+            <fieldset>
+              <span id="accessibility-error" class="error-message hidden" role="alert"></span>
+
+              <div class="radio-group">
+                <label>
+                  <input type="radio" name="accessibility" value="none" id="accessNone" required=""
+                    aria-describedby="accessibility-error">
+                  None
+                </label>
+                <label>
+                  <input type="radio" name="accessibility" value="wheelchair" id="accessWheelchair"
+                    aria-describedby="accessibility-error">
+                  Wheelchair accessible
+                </label>
+                <label>
+                  <input type="radio" name="accessibility" value="other" id="accessOther"
+                    aria-describedby="accessibility-error">
+                  Other (specify)
+                </label>
+              </div>
+            </fieldset>
+
+            <div id="otherAccessibilityContainer" class="hidden">
+              <label for="otherAccessibilityText">Other (specify)</label>
+              <span id="otherAccessibilityText-error" class="error-message hidden" role="alert"></span>
+              <input id="otherAccessibilityText" name="otherAccessibilityText" type="text"
+                aria-describedby="otherAccessibilityText-error">
+            </div>
+          </fieldset>
+
+          <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Success Message (hidden by default) -->
+    <div id="successMessage" class="success-message hidden" role="alert" aria-live="polite" tabindex="-1">
+      <h2>Mission request form sent</h2>
+      <p>You will receive an answer in the following 3 working days.</p>
+    </div>
+    <p>Please note:<br>European Parliament officials and other agents are reimbursed for bookings paid by
+      themselves.<br>The limit is set by the price of the proposal that will be made by the official travel agency.</p>
+    <a href="#" onclick="alert('This page is not part of the challenge!')">Review the full Parliament's travel
+      policy</a>
+  </main>
+
+  <script>
+    /* MAIN MULTI LEVEL MENU */
+    // 1. Alert for non-parent items (Home and Submenu Links)
+    const standaloneItems = document.querySelectorAll(
+      'nav[aria-label="Primary"] button:not([aria-expanded]), nav[aria-label="Primary"] ul li ul a'
+    );
+
+    standaloneItems.forEach(item => {
+      item.addEventListener('click', (event) => {
+        // If it's a link, prevent the default anchor behavior for the demo alert
+        if (item.tagName === 'A') {
+          event.preventDefault();
+        }
+        alert("This page is not part of the challenge!");
+      });
+    });
+
+    // 2. Toggle parent menus on click
+    document.querySelectorAll('nav[aria-label="Primary"] button[aria-expanded]').forEach(button => {
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        document.querySelectorAll('nav[aria-label="Primary"] button[aria-expanded="true"]').forEach(openButton => {
+          if (openButton !== button) {
+            openButton.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        button.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+
+    // 3. Close submenu when losing focus (Tabbing out)
+    document.querySelectorAll('nav[aria-label="Primary"] > ul > li').forEach(menuItem => {
+      menuItem.addEventListener('focusout', (event) => {
+        if (!menuItem.contains(event.relatedTarget)) {
+          const button = menuItem.querySelector('button[aria-expanded]');
+          if (button) {
+            button.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+
+    // 4. Close submenus when clicking completely outside the nav
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('nav[aria-label="Primary"]')) {
+        document.querySelectorAll('nav[aria-label="Primary"] button[aria-expanded="true"]').forEach(button => {
+          button.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+    /* END - MAIN MULTI LEVEL MENU */
+
+    /* CAROUSEL */
+    const slides = document.querySelectorAll('.slide');
+    const navNumbers = document.querySelectorAll('.nav-number');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.classList.add('sr-only');
+    document.body.appendChild(liveRegion);
+
+    let currentIndex = 0;
+
+    function updateCarousel(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+        slide.setAttribute('aria-hidden', i !== index);
+      });
+
+      navNumbers.forEach((num, i) => {
+        num.classList.toggle('active', i === index);
+        num.setAttribute('aria-selected', i === index);
+      });
+
+      const slideTitle = slides[index].querySelector('h3').textContent;
+      liveRegion.textContent = `Slide changed to: ${slideTitle}`;
+      setTimeout(() => {
+        liveRegion.textContent = '';
+      }, 1000);
+
+      currentIndex = index;
+    }
+
+    function handleKeyDown(event, action) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        action();
+      }
+    }
+
+    function navigateCarousel(direction) {
+      let newIndex = currentIndex + direction;
+      if (newIndex >= slides.length) newIndex = 0;
+      if (newIndex < 0) newIndex = slides.length - 1;
+      updateCarousel(newIndex);
+    }
+
+    nextBtn.addEventListener('click', () => navigateCarousel(1));
+    nextBtn.addEventListener('keydown', (event) => handleKeyDown(event, () => navigateCarousel(1)));
+
+    prevBtn.addEventListener('click', () => navigateCarousel(-1));
+    prevBtn.addEventListener('keydown', (event) => handleKeyDown(event, () => navigateCarousel(-1)));
+
+    navNumbers.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        updateCarousel(index);
+        button.focus();
+      });
+      button.addEventListener('keydown', (event) => {
+        handleKeyDown(event, () => {
+          updateCarousel(index);
+          button.focus();
+        });
+      });
+    });
+
+    updateCarousel(currentIndex);
+    /* END CAROUSEL */
+
+    // Round trip checkbox toggle
+    const roundTripCheckbox = document.getElementById('roundTrip');
+    const returnDateContainer = document.getElementById('returnDateContainer');
+    const today = new Date().toISOString().split('T')[0];
+
+    const departureDateInput = document.getElementById('departureDate');
+    const returnDateInput = document.getElementById('returnDate');
+
+    departureDateInput.min = today;
+    returnDateInput.min = today;
+
+    departureDateInput.addEventListener('change', () => {
+      const departureDate = departureDateInput.value;
+      if (departureDate) {
+        returnDateInput.min = departureDate;
+        if (returnDateInput.value && returnDateInput.value < departureDate) {
+          returnDateInput.value = '';
+        }
+      } else {
+        returnDateInput.min = today;
+      }
+    });
+
+    if (roundTripCheckbox.checked) {
+      returnDateContainer.classList.remove('hidden');
+    }
+
+    roundTripCheckbox.addEventListener('change', function () {
+      if (this.checked) {
+        returnDateContainer.classList.remove('hidden');
+        returnDateInput.required = true;
+      } else {
+        returnDateContainer.classList.add('hidden');
+        returnDateInput.value = '';
+        returnDateInput.required = false;
+      }
+    });
+
+    // Accommodation radio buttons toggle
+    const accomYes = document.getElementById('accomYes');
+    const accomNo = document.getElementById('accomNo');
+    const accommodationDetails = document.getElementById('accommodationDetails');
+
+    accomYes.addEventListener('change', function () {
+      if (this.checked) {
+        accommodationDetails.classList.remove('hidden');
+      }
+    });
+
+    accomNo.addEventListener('change', function () {
+      if (this.checked) {
+        accommodationDetails.classList.add('hidden');
+      }
+    });
+
+    // Number of nights spin buttons
+    const numNightsInput = document.getElementById('numNights');
+    document.getElementById('increaseNight').addEventListener('click', async () => {
+      let val = parseInt(numNightsInput.value, 10);
+      if (val < 30) {
+        numNightsInput.value = val + 1;
+        const newValue = numNightsInput.value;
+        document.getElementById('numNightsLive').textContent = `Number of nights increased to ${newValue}`;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        document.getElementById('numNightsLive').textContent = "";
+      }
+    });
+    document.getElementById('decreaseNight').addEventListener('click', async () => {
+      let val = parseInt(numNightsInput.value, 10);
+      if (val > 1) {
+        numNightsInput.value = val - 1;
+        const newValue = numNightsInput.value;
+        document.getElementById('numNightsLive').textContent = `Number of nights decreased to ${newValue}`;
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        document.getElementById('numNightsLive').textContent = "";
+      }
+    });
+
+    // Accessibility "Other" text field toggle
+    const accessNone = document.getElementById('accessNone');
+    const accessWheelchair = document.getElementById('accessWheelchair');
+    const accessOther = document.getElementById('accessOther');
+    const otherAccessibilityContainer = document.getElementById('otherAccessibilityContainer');
+
+    accessOther.addEventListener('change', function () {
+      if (this.checked) {
+        otherAccessibilityContainer.classList.remove('hidden');
+      }
+    });
+
+    accessNone.addEventListener('change', function () {
+      if (this.checked) {
+        otherAccessibilityContainer.classList.add('hidden');
+        document.getElementById('otherAccessibilityText').value = '';
+      }
+    });
+
+    accessWheelchair.addEventListener('change', function () {
+      if (this.checked) {
+        otherAccessibilityContainer.classList.add('hidden');
+        document.getElementById('otherAccessibilityText').value = '';
+      }
+    });
+
+    // Form validation and submission
+    const form = document.getElementById('missionForm');
+    const errorSummary = document.getElementById('errorSummary');
+    const errorList = document.getElementById('errorList');
+    const formContainer = document.getElementById('formContainer');
+    const successMessage = document.getElementById('successMessage');
+
+    function clearErrors() {
+      // Clear all error messages
+      const errorMessages = document.querySelectorAll('.error-message');
+      errorMessages.forEach(msg => {
+        msg.classList.add('hidden');
+        msg.textContent = '';
+      });
+
+      // Remove error class from inputs
+      const errorInputs = document.querySelectorAll('.error');
+      errorInputs.forEach(input => input.classList.remove('error'));
+
+      // Hide error summary
+      errorSummary.classList.add('hidden');
+      errorList.innerHTML = '';
+    }
+
+    function showError(fieldId, message, label) {
+      const field = document.getElementById(fieldId);
+      const errorSpan = document.getElementById(fieldId + '-error');
+
+      if (errorSpan) {
+        errorSpan.textContent = message;
+        errorSpan.classList.remove('hidden');
+      }
+
+      if (field) {
+        field.classList.add('error');
+      }
+
+      // Add to error summary
+      const li = document.createElement('li');
+      const link = document.createElement('a');
+      link.href = '#' + fieldId;
+      link.textContent = label + ': ' + message;
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        field.focus();
+      });
+      li.appendChild(link);
+      errorList.appendChild(li);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearErrors();
+
+      let hasErrors = false;
+      const errors = [];
+
+      // Validate Your name
+      const yourName = document.getElementById('yourName');
+      if (!yourName.value.trim()) {
+        showError('yourName', 'Please enter your name', 'Your name');
+        hasErrors = true;
+      }
+
+      // Validate Role
+      const role = document.getElementById('role');
+      if (!role.value) {
+        showError('role', 'Please select your role', 'Role');
+        hasErrors = true;
+      }
+
+      // Validate Mission Objective
+      const missionObjective = document.getElementById('missionObjective');
+      if (!missionObjective.value.trim()) {
+        showError('missionObjective', 'Please enter a mission objective', 'Mission objective');
+        hasErrors = true;
+      }
+
+      // Validate From
+      const from = document.getElementById('from');
+      if (!from.value) {
+        showError('from', 'Please select a departure location', 'From');
+        hasErrors = true;
+      }
+
+      // Validate To
+      const to = document.getElementById('to');
+      if (!to.value) {
+        showError('to', 'Please select a destination', 'To');
+        hasErrors = true;
+      } else if (from.value && to.value === from.value) {
+        showError('to', 'Destination must be different from departure location', 'To');
+        hasErrors = true;
+      }
+
+      // Validate Departure date
+      const departureDate = document.getElementById('departureDate');
+      if (!departureDate.value) {
+        showError('departureDate', 'Please select a departure date', 'Departure date');
+        hasErrors = true;
+      } else if (departureDate.value < today) {
+        showError('departureDate', 'Departure date cannot be in the past', 'Departure date');
+        hasErrors = true;
+      }
+
+      // Validate Return date (if round trip is checked)
+      const returnDate = document.getElementById('returnDate');
+      if (roundTripCheckbox.checked) {
+        if (!returnDate.value) {
+          showError('returnDate', 'Please select a return date', 'Return date');
+          hasErrors = true;
+        } else if (returnDate.value < departureDate.value) {
+          showError('returnDate', 'Return date cannot be before the departure date', 'Return date');
+          hasErrors = true;
+        }
+      }
+
+
+      // Validate Mode of Transport
+      const transport = document.querySelector('input[name="transport"]:checked');
+      if (!transport) {
+        showError('transport', 'Please select a mode of transport', 'Mode of Transport');
+        hasErrors = true;
+      }
+
+      // Validate Accommodation required
+      const accommodation = document.querySelector('input[name="accommodationRequired"]:checked');
+      if (!accommodation) {
+        showError('accommodationRequired', 'Please indicate if accommodation is required', 'Accommodation required');
+        hasErrors = true;
+      }
+
+      // Validate Accessibility
+      const accessibility = document.querySelector('input[name="accessibility"]:checked');
+      if (!accessibility) {
+        showError('accessibility', 'Please select an accessibility option', 'Accessibility Requirements');
+        hasErrors = true;
+      } else if (accessibility.value === 'other') {
+        const otherText = document.getElementById('otherAccessibilityText');
+        if (!otherText.value.trim()) {
+          showError('otherAccessibilityText', 'Please specify other accessibility requirements', 'Other accessibility requirements');
+          hasErrors = true;
+        }
+      }
+
+      if (hasErrors) {
+        // Show error summary and move focus to it
+        errorSummary.classList.remove('hidden');
+        errorSummary.focus();
+      } else {
+        // Hide form and show success message
+        formContainer.classList.add('hidden');
+        successMessage.classList.remove('hidden');
+        successMessage.focus();
+      }
+    });
+
+    // Tooltip
+    const dateField = document.getElementById('returnDate');
+    const dateHint = document.getElementById('date-hint');
+
+    const showTooltip = () => {
+      dateHint.classList.add('is-visible');
+    };
+
+    const hideTooltip = () => {
+      dateHint.classList.remove('is-visible');
+    };
+
+    dateField.addEventListener('focus', showTooltip);
+    dateField.addEventListener('blur', hideTooltip);
+
+    dateField.addEventListener('mouseenter', showTooltip);
+    dateField.addEventListener('mouseleave', hideTooltip);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        hideTooltip();
+      }
+    });
+    // END Tooltip
+
+  </script>
+</body>
+
+</html>
