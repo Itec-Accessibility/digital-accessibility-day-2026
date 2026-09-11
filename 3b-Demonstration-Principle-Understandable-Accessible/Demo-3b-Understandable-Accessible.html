@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT Event Equipment Request Form</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0 0 20px 0;
+    }
+
+    body>aside,
+    body>main,
+    body>section {
+      padding: 0 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-size: 1rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 3px solid #e6eefb;
+      background-color: #1A3C8D;
+      /* EP blue */
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: #1A3C8D;
+      /* EP blue */
+      padding: 0.75rem 1rem;
+      border-radius: 0 0 8px 8px;
+      color: #ffffff;
+    }
+
+    .brand img {
+      height: auto;
+      max-width: 260px;
+      display: block;
+    }
+
+    h1 {
+      color: #003399;
+      border-bottom: 3px solid #ffcc00;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      color: #003399;
+    }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: 600;
+    }
+
+    fieldset {
+      width: fit-content;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 8px;
+      width: 300px;
+      max-width: 80%;
+      border: 1px solid #646464;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+      outline: 3px solid #003399;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px white;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    .device-option {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .device-option label {
+      margin-top: 0 !important;
+    }
+
+    .list-device-option li {
+      margin-left: -15px;
+    }
+
+    .quantity {
+      margin-left: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 4px;
+    }
+
+    .error-summary {
+      border: 2px solid red;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: #ffe6e6;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #003399;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #002266;
+    }
+
+    .secondary {
+      background-color: #646464;
+      margin-left: 10px;
+    }
+
+    .secondary:hover {
+      background-color: #444;
+    }
+
+    .instruction {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* Dialog styles */
+    .dialog-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dialog {
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .dialog button {
+      margin-top: 15px;
+    }
+
+    .textarea-group {
+      width: fit-content;
+    }
+
+    .char-hint {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .sr-alert {
+      display: block;
+      margin-top: 5px;
+      font-size: 0.85em;
+      font-weight: bold;
+      color: #FF0000;
+    }
+
+    .no-space {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    .no-space p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header role="banner">
+    <div class="brand">
+      <!-- EP logo: alt text must be descriptive -->
+      <img src="ep_logo_itec.png"
+        alt="Logo of the European Parliament with text Directorate-General for Information Technologies and Cybersecurity"
+        width="270" height="105">
+    </div>
+  </header>
+  <main>
+    <h1>IT event equipment request form</h1>
+    <div lang="en" class="no-space">
+      <p><strong>English</strong></p>
+      <p>
+        This form is for requesting IT devices for a specific event.
+        Your request will be submitted to the IT department for approval.<br>
+        Required fields are marked with an asterisk (*).
+      </p>
+      <p class="instruction">
+        <strong>Note: All requests must:</strong>
+      <ul>
+        <li>comply with the internal DG-ITEC Service Level Agreement (SLA) (which defines service deadlines)</li>
+        <li>respect the Configuration Management Database (CMDB) asset mapping protocol (used for tracking equipment
+          inventory)</li>
+      </ul>
+      </p>
+    </div>
+
+    <div lang="fr" class="no-space">
+      <p><strong>Français</strong></p>
+      <p>
+        Ce formulaire permet de demander des appareils informatiques pour un événement spécifique. Votre demande sera
+        soumise au département informatique pour approbation.<br>
+        Les champs obligatoires sont marqués d'un astérisque (*).
+      </p>
+      <p class="instruction">
+        <strong>Remarque : Toutes les demandes doivent :</strong>
+      <ul>
+        <li>être conformes à l'accord de niveau de service (SLA) interne de la DG-ITEC (qui définit les délais de
+          prestation)</li>
+        <li>respecter le protocole de cartographie des actifs de la base de données de gestion des configurations (CMDB)
+          (utilisé pour le suivi de l'inventaire des équipements)</li>
+      </ul>
+      </p>
+    </div>
+
+    <div lang="de" class="no-space">
+      <p><strong>Deutsch</strong></p>
+      <p>
+        Dieses Formular dient der Anforderung von IT-Geräten für eine bestimmte Veranstaltung. Ihr Antrag wird der
+        IT-Abteilung zur Genehmigung vorgelegt.
+        <br>
+        Pflichtfelder sind mit einem Sternchen (*) gekennzeichnet.
+      </p>
+      <p class="instruction">
+        <strong>Hinweis: Alle Anträge müssen:</strong>
+      <ul>
+        <li>der internen Service-Level-Vereinbarung (SLA) der GD ITEC entsprechen (welche die Servicefristen festlegt)
+        </li>
+        <li>das Asset-Mapping-Protokoll der Configuration Management Database (CMDB) einhalten (das für die Verfolgung
+          des Gerätebestands verwendet wird)</li>
+      </ul>
+      </p>
+    </div>
+
+    <form id="equipmentForm" novalidate>
+      <!-- Error summary container -->
+      <div id="errorSummary" class="error-summary hidden" tabindex="-1" role="alert" aria-live="polite"></div>
+
+      <h2>Event & contact details</h2>
+
+      <label for="eventName">Event name*:</label>
+      <input type="text" id="eventName" name="eventName" required aria-describedby="eventNameError">
+      <div id="eventNameError" class="error hidden"></div>
+
+      <label for="eventDate">Event date*:</label>
+      <input type="date" id="eventDate" name="eventDate" required aria-describedby="eventDateError">
+      <div id="eventDateError" class="error hidden"></div>
+
+      <label for="dg">Directorate-General*:</label>
+      <select id="dg" name="dg" required aria-describedby="dgError">>
+        <option value="">-- Select --</option>
+        <option>Secretary-General</option>
+        <option>Deputy Secretary-General Winkler</option>
+        <option>Deputy Secretary-General Rasmussen</option>
+        <option>CCLA Directorate</option>
+        <option>DG PRES</option>
+        <option>DG ECTI</option>
+        <option>DG CASP</option>
+        <option>DG IUST</option>
+        <option>DG BUDG</option>
+        <option>DG EXPO</option>
+        <option>DG EPRS</option>
+        <option>DG COMM</option>
+        <option>DG PART</option>
+        <option>DG PERS</option>
+        <option>DG INLO</option>
+        <option>DG TRAD</option>
+        <option>DG LINC</option>
+        <option>DG FINS</option>
+        <option>DG ITEC</option>
+        <option>DG SAFE</option>
+        <option>Legal Service</option>
+        <option>Staff Committee</option>
+      </select>
+      <div id="dgError" class="error hidden"></div>
+
+      <label for="contactPerson">Contact person*:</label>
+      <input type="text" id="contactPerson" name="contactPerson" required aria-describedby="contactPersonError"
+        autocomplete="name">
+      <div id="contactPersonError" class="error hidden"></div>
+
+      <label for="phoneContact">Phone number*:</label>
+      <span class="instruction">Give the phone number in the international format, beginning by "+" and the prefix of
+        the country. For example: +32 2 123 45 67 </span>
+      <input type="tel" id="phoneContact" name="phoneContact" pattern="^\+(?:[0-9] ?){6,20}$" required
+        placeholder="+32 2 123 45 67" aria-describedby="phoneContactError" autocomplete="tel">
+      <div id="phoneContactError" class="error hidden"></div>
+
+      <h2>Equipment requirements</h2>
+      <fieldset>
+        <legend>Device type*:</legend>
+        <div id="deviceError" class="error hidden">At least one device should be requested.</div>
+
+        <ul class="list-device-option">
+          <li class="device-option">
+            <input type="checkbox" id="screens" name="device" value="screens">
+            <label for="screens">Large screen/monitor</label>
+          </li>
+
+          <li class="device-option">
+            <input type="checkbox" id="laptops" name="device" value="laptops">
+            <label for="laptops">Laptop</label>
+          </li>
+
+          <li class="device-option">
+            <input type="checkbox" id="tablets" name="device" value="tablets">
+            <label for="tablets">Tablet</label>
+          </li>
+
+          <li class="device-option">
+            <input type="checkbox" id="mice" name="device" value="mice">
+            <label for="mice">Mouse</label>
+          </li>
+
+          <li class="device-option">
+            <input type="checkbox" id="keyboards" name="device" value="keyboards">
+            <label for="keyboards">Keyboard</label>
+          </li>
+        </ul>
+      </fieldset>
+
+      <div class="textarea-group">
+        <label for="details">Detailed information</label>
+        <span class="instruction">Example: We need an AZERTY keyboard.</span>
+        <textarea id="details" name="details"></textarea>
+        <span class="char-hint">
+          <span class="count-number" id="current-count">0</span> characters entered (<span class="count-number"
+            id="remaining-count">500</span> remaining)
+        </span>
+
+        <div id="accessibility-alert" class="sr-alert" aria-live="assertive"></div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Request equipment</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Success Dialog -->
+  <div class="dialog-backdrop" id="successDialog" role="dialog" aria-modal="true" aria-labelledby="successTitle"
+    aria-describedby="successDesc">
+    <div class="dialog">
+      <h2 id="successTitle">Order received</h2>
+      <p id="successDesc">Your order was sent to the IT Service. We will come back to you soon.</p>
+      <button type="button" aria-label="close dialog" id="closeSuccess">Close</button>
+    </div>
+  </div>
+
+  <!-- Review Dialog -->
+  <div class="dialog-backdrop" id="reviewDialog" role="dialog" aria-modal="true" aria-describedby="reviewTitle">
+    <div class="dialog">
+      <h2 id="reviewTitle">Review of the order</h2>
+      <div id="reviewContent"></div>
+      <button type="button" id="reviewSubmit">Request equipment</button>
+      <button type="button" id="closeReview" class="secondary">Back to the form</button>
+    </div>
+  </div>
+
+  <script>
+
+    const eventDateInput = document.getElementById("eventDate");
+    const today = new Date().toISOString().split("T")[0];
+    eventDateInput.min = today;
+
+    eventDateInput.addEventListener("change", () => {
+      const errorEl = document.getElementById("eventDateError");
+      const selectedDate = new Date(eventDateInput.value);
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
+      if (selectedDate >= now) {
+        errorEl.classList.add("hidden");
+        eventDateInput.removeAttribute("aria-invalid");
+      }
+    });
+
+    const form = document.getElementById("equipmentForm");
+    const errorSummary = document.getElementById("errorSummary");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+      let errors = [];
+
+      // Validate required inputs
+      form.querySelectorAll("[required]").forEach(input => {
+        const label = form.querySelector(`label[for="${input.id}"]`);
+        const labelText = label ? label.textContent.replace("*:", "").trim() : input.name;
+        const errorEl = document.getElementById(input.id + "Error");
+
+        if (input.value.trim() === "") {
+          if (errorEl) {
+            errorEl.textContent = `${labelText} is required.`;
+            errorEl.classList.remove("hidden");
+          }
+          input.setAttribute("aria-invalid", "true");
+          valid = false;
+          errors.push(`<a href="#${input.id}">${labelText} is required</a>`);
+        } else if (input.type === "tel" && !input.checkValidity()) {
+          if (errorEl) {
+            errorEl.textContent = `${labelText} is required and should have a valid format. The number should be entered in international format, beginning by "+" and the prefix of the country. For example: +32 2 123 45 67, or +3221234567`;
+            errorEl.classList.remove("hidden");
+          }
+          input.setAttribute("aria-invalid", "true");
+          valid = false;
+          errors.push(`<a href="#${input.id}">${labelText} is required and should have a valid format. The number should be entered in international format, beginning by "+" and the prefix of the country. For example: +32 2 123 45 67, or +3221234567</a>`);
+        } else {
+          if (errorEl) errorEl.classList.add("hidden");
+          input.removeAttribute("aria-invalid");
+        }
+      });
+
+      // Validate DG dropdown
+      const dg = document.getElementById("dg");
+      const dgError = document.getElementById("dgError");
+      if (dg.value.trim() === "") {
+        dgError.textContent = "Directorate General is required.";
+        dgError.classList.remove("hidden");
+        dg.setAttribute("aria-invalid", "true");
+        valid = false;
+        errors.push("<a href='#dg'>Directorate General is required</a>");
+      } else {
+        dgError.classList.add("hidden");
+        dg.removeAttribute("aria-invalid");
+      }
+
+      const eventDate = document.getElementById("eventDate");
+      const eventDateError = document.getElementById("eventDateError");
+      if (eventDate.value) {
+        const selectedDate = new Date(eventDate.value);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0); // Ignore time
+        if (selectedDate < now) {
+          eventDateError.textContent = "Event date cannot be in the past.";
+          eventDateError.classList.remove("hidden");
+          eventDate.setAttribute("aria-invalid", "true");
+          valid = false;
+          errors.push("<a href='#eventDate'>Event date cannot be in the past</a>");
+        }
+      }
+
+      // Validate device type
+      const deviceError = document.getElementById("deviceError");
+      const checkboxes = form.querySelectorAll("input[type=checkbox][name=device]");
+      const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+      if (!anyChecked) {
+        deviceError.classList.remove("hidden");
+        valid = false;
+        errors.push(`<a href="#screens">${deviceError.textContent}</a>`);
+      } else {
+        deviceError.classList.add("hidden");
+      }
+
+      if (!valid) {
+        errorSummary.innerHTML =
+          `<h2>Error - request not sent</h2>
+           <p>Due to the following issue(s), the request was not sent. Please correct the following issues and press "Request equipment"</p>
+           <ul>${errors.map(e => `<li>${e}</li>`).join("")}</ul>`;
+        errorSummary.classList.remove("hidden");
+        errorSummary.focus();
+        return;
+      }
+
+      // If everything is valid, show success dialog
+      errorSummary.classList.add("hidden");
+      document.getElementById("successDialog").style.display = "flex";
+      document.getElementById("closeSuccess").focus();
+    });
+
+    // Clear errors when user fixes input
+    form.querySelectorAll("[required]").forEach(input => {
+      input.addEventListener("input", () => {
+        const errorEl = document.getElementById(input.id + "Error");
+        if (input.checkValidity() && input.value.trim() !== "") {
+          if (errorEl) errorEl.classList.add("hidden");
+          input.removeAttribute("aria-invalid");
+        }
+      });
+    });
+
+    form.querySelectorAll("input[type=checkbox][name=device]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const deviceError = document.getElementById("deviceError");
+        const anyChecked = Array.from(form.querySelectorAll("input[type=checkbox][name=device]")).some(c => c.checked);
+        if (anyChecked) {
+          deviceError.classList.add("hidden");
+        }
+      });
+    });
+
+    // Toggle quantity dropdowns
+    const devices = ["screens", "laptops", "tablets", "mice", "keyboards"];
+    devices.forEach(device => {
+      const checkbox = document.getElementById(device);
+      const qty = document.getElementById(device + "Qty");
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          qty.classList.remove("hidden");
+          qty.setAttribute("required", "true");
+        } else {
+          qty.classList.add("hidden");
+          qty.removeAttribute("required");
+          qty.value = "";
+        }
+      });
+    });
+
+    // Success dialog controls
+    const successDialog = document.getElementById("successDialog");
+    const closeSuccess = document.getElementById("closeSuccess");
+    closeSuccess.addEventListener("click", () => {
+      successDialog.style.display = "none";
+    });
+
+    // Char counter
+    const textarea = document.getElementById('details');
+    const currentCountSpan = document.getElementById('current-count');
+    const remainingCountSpan = document.getElementById('remaining-count');
+    const alertZone = document.getElementById('accessibility-alert');
+
+    const maxLength = 500;
+
+    textarea.addEventListener('input', () => {
+      let currentLength = textarea.value.length;
+
+      if (currentLength > maxLength) {
+        textarea.value = textarea.value.substring(0, maxLength);
+        currentLength = maxLength;
+      }
+
+      const remainingLength = maxLength - currentLength;
+
+      currentCountSpan.textContent = currentLength;
+      remainingCountSpan.textContent = remainingLength;
+
+      if (currentLength === maxLength) {
+        alertZone.textContent = "Maximum character limit reached (500 characters).";
+      } else {
+        alertZone.textContent = "";
+      }
+    });
+
+  </script>
+</body>
+
+</html>
