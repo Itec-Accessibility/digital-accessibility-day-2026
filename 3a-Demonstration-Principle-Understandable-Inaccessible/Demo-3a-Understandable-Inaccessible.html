@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>IT Event Equipment Request Form</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin: 40px;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0 20px 20px 20px;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-size: 1rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 3px solid #e6eefb;
+      background-color: #1A3C8D;
+      margin: -2rem -2rem 0 -2rem;
+      /* EP blue */
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background-color: #1A3C8D;
+      /* EP blue */
+      padding: 0.75rem 1rem;
+      border-radius: 0 0 8px 8px;
+      color: #ffffff;
+    }
+
+    .brand img {
+      height: auto;
+      max-width: 260px;
+      display: block;
+    }
+
+    h1 {
+      color: #003399;
+      border-bottom: 3px solid #ffcc00;
+      padding-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 30px;
+      color: #003399;
+    }
+
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: 600;
+    }
+
+    fieldset {
+      width: fit-content;
+    }
+
+    input,
+    select,
+    textarea {
+      padding: 8px;
+      width: 300px;
+      max-width: 80%;
+      border: 1px solid #646464;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus,
+    button:focus {
+      outline: 3px solid #003399;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 2px white;
+    }
+
+    textarea {
+      height: 100px;
+    }
+
+    .device-option {
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .device-option label {
+      margin-top: 0 !important;
+    }
+
+    .list-device-option li {
+      margin-left: -15px;
+    }
+
+    .quantity {
+      margin-left: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 4px;
+    }
+
+    .error-summary {
+      border: 2px solid red;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: #ffe6e6;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #003399;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #002266;
+    }
+
+    .secondary {
+      background-color: #646464;
+      margin-left: 10px;
+    }
+
+    .secondary:hover {
+      background-color: #444;
+    }
+
+    .instruction {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 3px;
+      display: block;
+    }
+
+    /* Dialog styles */
+    .dialog-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dialog {
+      background: white;
+      padding: 20px;
+      border-radius: 6px;
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .dialog button {
+      margin-top: 15px;
+    }
+
+    .textarea-group {
+      width: fit-content;
+    }
+
+    .char-hint {
+      display: block;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .no-space {
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #cccccc;
+    }
+
+    .no-space p {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <header role="banner">
+    <div class="brand">
+      <!-- EP logo: alt text must be descriptive -->
+      <img src="ep_logo_itec.png"
+        alt="Logo of the European Parliament with text Directorate-General for Information Technologies and Cybersecurity"
+        width="270" height="105">
+
+    </div>
+
+    <!-- Primary navigation in nav landmark with ARIA label -->
+
+  </header>
+  <h1>IT event equipment request form</h1>
+  <div class="no-space">
+    <p><strong>English</strong></p>
+    <p>
+      This form is for requesting IT devices for a specific event.
+      Your request will be submitted to the IT department for approval.
+    </p>
+    <p class="instruction">
+      <strong>Note:</strong> All requests must comply with the internal DG-ITEC SLA and respect the CMDB asset mapping
+      protocol.
+    </p>
+  </div>
+
+  <div class="no-space">
+    <p><strong>Français</strong></p>
+    <p>
+      Ce formulaire permet de demander des équipements informatiques pour un événement spécifique.
+      Votre demande sera soumise au département informatique pour approbation.
+    </p>
+    <p class="instruction">
+      <strong>Remarque :</strong> Toutes les demandes doivent se conformer au SLA interne
+      de la DG-ITEC et respecter le protocole de cartographie des actifs de la CMDB.
+    </p>
+  </div>
+  <div class="no-space">
+    <p><strong>Deutsch</strong></p>
+    <p>
+      Dieses Formular dient de Anforderung von IT-Geräten für eine bestimmte Veranstaltung.
+      Ihr Antrag wird der IT-Abteilung zur Genehmigung vorgelegt.
+    </p>
+    <p class="instruction">
+      <strong>Hinweis:</strong> Alle Anfragen müssen mit dem SLA der DG-ITEC
+      übereinstimmen und das CMDB-Asset-Mapping-Protokoll einhalten.
+    </p>
+  </div>
+  <br>
+  <form id="equipmentForm" novalidate>
+    <!-- Error summary container -->
+    <div id="errorSummary" class="error-summary hidden" tabindex="-1">There are errors in the entered data. Please check
+      all fields and try again.</div>
+
+    <h2>Event & contact details</h2>
+
+    <label for="eventName">Name:</label>
+    <input type="text" id="eventName" name="eventName" data-required>
+    <label for="eventDate">Date:</label>
+    <input type="text" id="eventDate" name="eventDate" data-required
+      data-pattern="^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$">
+    <label for="dg">Requester:</label>
+    <input type="text" id="dg" name="dg" data-required data-pattern="^DG [A-Z]+$">
+    <label for="contactPerson">Contact:</label>
+    <input type="text" id="contactPerson" name="contactPerson" data-required>
+    <label for="phoneContact">Phone:</label>
+    <input type="text" id="phoneContact" name="phoneContact" data-pattern="^\+(?:[0-9]){6,20}$" data-required>
+    <h2>Equipment requirements</h2>
+    <fieldset lang="fr">
+      <legend>Type:</legend>
+      <ul class="list-device-option">
+        <li class="device-option">
+          <input type="checkbox" id="screens" name="device" value="screens">
+          <label for="screens">Large screen/monitor</label>
+        </li>
+
+        <li class="device-option">
+          <input type="checkbox" id="laptops" name="device" value="laptops">
+          <label for="laptops">Laptop</label>
+        </li>
+
+        <li class="device-option">
+          <input type="checkbox" id="tablets" name="device" value="tablets">
+          <label for="tablets">Tablet</label>
+        </li>
+
+        <li class="device-option">
+          <input type="checkbox" id="mice" name="device" value="mice">
+          <label for="mice">Mouse</label>
+        </li>
+
+        <li class="device-option">
+          <input type="checkbox" id="keyboards" name="device" value="keyboards">
+          <label for="keyboards">Keyboard</label>
+        </li>
+      </ul>
+    </fieldset>
+
+    <div class="textarea-group">
+      <label for="details">Details</label>
+      <textarea id="details" name="details"></textarea>
+      <span class="char-hint">Maximum 500 characters</span>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" style="color:white"><b>&gt;&gt;&gt;</b></button>
+    </div>
+  </form>
+
+  <!-- Success Dialog -->
+  <div class="dialog-backdrop" id="successDialog" role="dialog" aria-modal="true">
+    <div class="dialog">
+      <h2 id="successTitle">Order received</h2>
+      <p id="successDesc">Your order was sent to the IT Service. We will come back to you soon.</p>
+      <button type="button" aria-label="close dialog" id="closeSuccess">Close</button>
+    </div>
+  </div>
+
+  <!-- Review Dialog -->
+  <div class="dialog-backdrop" id="reviewDialog" role="dialog" aria-modal="true" aria-describedby="reviewTitle">
+    <div class="dialog">
+      <h2 id="reviewTitle">Review of the order</h2>
+      <div id="reviewContent"></div>
+      <button type="button" id="reviewSubmit">Request equipment</button>
+      <button type="button" id="closeReview" class="secondary">Back to the form</button>
+    </div>
+  </div>
+
+  <script>
+
+    const eventDateInput = document.getElementById("eventDate");
+    const today = new Date().toISOString().split("T")[0];
+    const form = document.getElementById("equipmentForm");
+    const errorSummary = document.getElementById("errorSummary");
+    const checkboxes = form.querySelectorAll("input[type=checkbox][name=device]");
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        document.getElementById('eventName').focus();
+      });
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate required inputs
+      form.querySelectorAll("[data-required]").forEach(input => {
+        if (input.value.trim() === "" || !input.checkValidity()) {
+          valid = false;
+        }
+        if (input.dataset.pattern) {
+          let regex = new RegExp(input.dataset.pattern);
+          if (!regex.test(input.value)) {
+            valid = false;
+          }
+        }
+      });
+
+
+      const eventDate = document.getElementById("eventDate");
+      if (eventDate.value) {
+        const selectedDate = new Date(eventDate.value);
+        const now = new Date();
+        now.setHours(0, 0, 0, 0); // Ignore time
+        if (selectedDate < now) {
+          valid = false;
+        }
+      }
+
+      // Validate device type
+      const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+
+      if (!anyChecked) {
+        valid = false;
+      }
+      if (!valid) {
+        errorSummary.classList.remove("hidden");
+        return;
+      }
+
+      // If everything is valid, show success dialog
+      errorSummary.classList.add("hidden");
+      document.getElementById("successDialog").style.display = "flex";
+      document.getElementById("closeSuccess").focus();
+    });
+
+    // Toggle quantity dropdowns
+    const devices = ["screens", "laptops", "tablets", "mice", "keyboards"];
+    devices.forEach(device => {
+      const checkbox = document.getElementById(device);
+      const qty = document.getElementById(device + "Qty");
+      checkbox.addEventListener("change", () => {
+        if (checkbox.checked) {
+          qty.classList.remove("hidden");
+          qty.setAttribute("required", "true");
+        } else {
+          qty.classList.add("hidden");
+          qty.removeAttribute("required");
+          qty.value = "";
+        }
+      });
+    });
+
+    // Success dialog controls
+    const successDialog = document.getElementById("successDialog");
+    const closeSuccess = document.getElementById("closeSuccess");
+    closeSuccess.addEventListener("click", () => {
+      successDialog.style.display = "none";
+    });
+
+  </script>
+</body>
+
+</html>
